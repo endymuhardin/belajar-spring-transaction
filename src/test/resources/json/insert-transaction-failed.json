@@ -1,0 +1,8 @@
+{
+  "rekening": {
+    "id": "r001"
+  },
+  "waktuTransaksi":"2020-12-31T13:59:59",
+  "keterangan" : "Test transaksi gagal",
+  "nilai" : "14000"
+}
