@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @Controller
 public class TransaksiController {
@@ -23,6 +24,12 @@ public class TransaksiController {
         Rekening rekening = rekeningDao.findById(transaksi.getRekening().getId()).get();
         transaksiDao.save(transaksi);
 
+        if (transaksi.getNilai()
+                .remainder(new BigDecimal(7000))
+                .compareTo(BigDecimal.ZERO) == 0) {
+            throw new RuntimeException("Kelipatan 7000 menimbulkan error");
+        }
+        
         rekening.setSaldo(rekening.getSaldo().add(transaksi.getNilai()));
         rekeningDao.save(rekening);
     }
