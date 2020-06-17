@@ -29,7 +29,7 @@ public class TransaksiController {
         if (transaksi.getNilai()
                 .remainder(new BigDecimal(7000))
                 .compareTo(BigDecimal.ZERO) == 0) {
-            throw new RuntimeException("Kelipatan 7000 menimbulkan error");
+            throw new Exception("Kelipatan 7000 menimbulkan error");
         }
 
         rekening.setSaldo(rekening.getSaldo().add(transaksi.getNilai()));
