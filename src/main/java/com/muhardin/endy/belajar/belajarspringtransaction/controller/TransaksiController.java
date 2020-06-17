@@ -7,6 +7,7 @@ import com.muhardin.endy.belajar.belajarspringtransaction.entity.Transaksi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ public class TransaksiController {
     @Autowired private TransaksiDao transaksiDao;
     @Autowired private RekeningDao rekeningDao;
 
+    @Transactional
     @PostMapping("/transaksi/")
     @ResponseStatus(HttpStatus.CREATED)
     public void insertTransaksi(@RequestBody @Valid Transaksi transaksi) throws Exception{
@@ -29,7 +31,7 @@ public class TransaksiController {
                 .compareTo(BigDecimal.ZERO) == 0) {
             throw new RuntimeException("Kelipatan 7000 menimbulkan error");
         }
-        
+
         rekening.setSaldo(rekening.getSaldo().add(transaksi.getNilai()));
         rekeningDao.save(rekening);
     }
